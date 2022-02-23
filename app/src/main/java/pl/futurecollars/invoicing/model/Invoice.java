@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class Invoice {
 
   private Integer id;
@@ -15,4 +14,11 @@ public class Invoice {
   private Company buyerCompany;
   private List<InvoiceEntry> invoiceEntries;
 
+  public Invoice(LocalDate date, Company sellerCompany, Company buyerCompany,
+                 List<InvoiceEntry> invoiceEntries) {
+    this.date = date;
+    this.sellerCompany = sellerCompany;
+    this.buyerCompany = buyerCompany;
+    this.invoiceEntries = invoiceEntries;
+  }
 }
