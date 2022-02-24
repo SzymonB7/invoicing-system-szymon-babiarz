@@ -30,11 +30,11 @@ public class InMemoryDatabase implements Database {
 
   @Override
   public void update(Integer id, Invoice updatedInvoice) {
-    if (!invoices.containsKey(id)){
+    if (!invoices.containsKey(id)) {
       throw new IllegalArgumentException("Id " + id + " does not exist");
     }
     updatedInvoice.setId(id);
-    invoices.put(id,updatedInvoice);
+    invoices.put(id, updatedInvoice);
   }
 
   @Override
