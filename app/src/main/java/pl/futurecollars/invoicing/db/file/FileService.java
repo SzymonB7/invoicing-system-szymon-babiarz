@@ -15,6 +15,10 @@ public class FileService {
     Files.write(path, line.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
   }
 
+  public void overwriteLinesInFile (Path path, List<String> lines) throws IOException {
+    Files.write(path, lines, StandardOpenOption.TRUNCATE_EXISTING);
+  }
+
   public List<String> readAllLines(Path path) throws IOException {
     return Files.readAllLines(path);
   }

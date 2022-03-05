@@ -9,24 +9,24 @@ import java.io.IOException;
 public class App {
 
   public static void main(String[] args) throws IOException {
-    /*
-    Company buyer = new Company(1, 11, "Koncertowa 6/8, 80-301 Gdańśk");
-    Company seller = new Company(2, 22, "Słowackiego 6/8, 80-302 Gdańśk");
-    InvoiceEntry invoiceEntry1 = new InvoiceEntry("Bułka", BigDecimal.valueOf(100), BigDecimal.valueOf(100 * 0.08), Vat.VAT_8);
-    InvoiceEntry invoiceEntry2 = new InvoiceEntry("Chleb", BigDecimal.valueOf(200), BigDecimal.valueOf(200 * 0.05), Vat.VAT_5);
-    InvoiceEntry invoiceEntry3 = new InvoiceEntry("Kakao", BigDecimal.valueOf(300), BigDecimal.valueOf(300 * 0.23), Vat.VAT_23);
-    List<InvoiceEntry> products = Arrays.asList(invoiceEntry1, invoiceEntry2, invoiceEntry3);
 
-    Invoice invoice = new Invoice(LocalDate.now(), buyer, seller, products);
+//    Company buyer = new Company("Apple", 11, "Koncertowa 6/8, 80-301 Gdańśk");
+//    Company seller = new Company("Sony", 22, "Słowackiego 6/8, 80-302 Gdańśk");
+//    InvoiceEntry invoiceEntry1 = new InvoiceEntry("Bułka", BigDecimal.valueOf(100), BigDecimal.valueOf(100 * 0.08), Vat.VAT_8);
+//    InvoiceEntry invoiceEntry2 = new InvoiceEntry("Chleb", BigDecimal.valueOf(200), BigDecimal.valueOf(200 * 0.05), Vat.VAT_5);
+//    InvoiceEntry invoiceEntry3 = new InvoiceEntry("Kakao", BigDecimal.valueOf(300), BigDecimal.valueOf(300 * 0.23), Vat.VAT_23);
+//    List<InvoiceEntry> products = Arrays.asList(invoiceEntry1, invoiceEntry2, invoiceEntry3);
+//
+//    Invoice invoice = new Invoice(LocalDate.now(), buyer, seller, products);
+//
+//    ObjectMapper objectMapper = new ObjectMapper();
+//    objectMapper.registerModule(new JavaTimeModule());
+//    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+//    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+//    String invoiceAsJson = objectMapper.writeValueAsString(List.of(invoice));
+//    objectMapper.writeValue(new File("invoice.json"), invoice);
+//    Invoice invoiceFromFile = objectMapper.readValue(new File("invoice.json"), Invoice.class);
+//    System.out.println(invoiceAsJson);
 
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.registerModule(new JavaTimeModule());
-    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-    String invoiceAsJson = objectMapper.writeValueAsString(List.of(invoice));
-    objectMapper.writeValue(new File("invoice.json"), invoice);
-    Invoice invoiceFromFile = objectMapper.readValue(new File("invoice.json"), Invoice.class);
-    System.out.println(invoiceFromFile);
-    */
   }
 }

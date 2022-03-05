@@ -7,16 +7,29 @@ import java.util.List;
 import pl.futurecollars.invoicing.model.Invoice;
 
 public class JsonService {
-  ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper;
 
-  public String writeInvoiceAsJson(Invoice invoice) throws JsonProcessingException {
-    return objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-        .writeValueAsString(List.of(invoice));
+  {
+    objectMapper = new ObjectMapper();
+    objectMapper.findAndRegisterModules();
+    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
   }
 
-  public Invoice readJsonAsInvoice(String invoiceAsJson) throws JsonProcessingException {
-    return objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-        .readValue(invoiceAsJson, Invoice.class);
+  public String writeInvoiceAsJson(Invoice invoice) {
+
+    try {
+      return objectMapper.writeValueAsString(List.of(invoice));
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException("Failed to write invoice to JSON", e);
+    }
+  }
+
+  public Invoice readJsonAsInvoice(String invoiceAsJson) {
+    try {
+      return objectMapper.readValue(invoiceAsJson, Invoice.class);
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException("Failed to parse JSON", e);
+    }
   }
 
 }
