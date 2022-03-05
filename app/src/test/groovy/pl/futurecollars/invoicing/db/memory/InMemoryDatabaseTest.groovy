@@ -52,9 +52,9 @@ class InMemoryDatabaseTest extends Specification {
         database.save(invoice2)
         def list = [invoice3, invoice1, invoice2]
         then:
-        database.getById(1) == invoice3
-        database.getById(2) == invoice1
-        database.getById(3) == invoice2
+        database.getById(1) == Optional.of(invoice3)
+        database.getById(2) == Optional.of(invoice1)
+        database.getById(3) == Optional.of(invoice2)
         database.getAll() == list
     }
 
@@ -73,7 +73,7 @@ class InMemoryDatabaseTest extends Specification {
         database.save(invoice2)
         database.update(2, invoice3)
         then:
-        database.getById(2) == invoice3
+        database.getById(2) == Optional.of(invoice3)
     }
 
     def "Delete"() {
