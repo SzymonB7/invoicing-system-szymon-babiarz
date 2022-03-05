@@ -3,7 +3,7 @@ package pl.futurecollars.invoicing.db.file;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import java.util.List;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import pl.futurecollars.invoicing.model.Invoice;
 
 public class JsonService {
@@ -11,14 +11,14 @@ public class JsonService {
 
   {
     objectMapper = new ObjectMapper();
-    objectMapper.findAndRegisterModules();
+    objectMapper.registerModule(new JavaTimeModule());
     objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
   }
 
-  public String writeInvoiceAsJson(Invoice invoice) {
+  public String writeInvoiceAsJson(Object object) {
 
     try {
-      return objectMapper.writeValueAsString(List.of(invoice));
+      return objectMapper.writeValueAsString(object);
     } catch (JsonProcessingException e) {
       throw new RuntimeException("Failed to write invoice to JSON", e);
     }

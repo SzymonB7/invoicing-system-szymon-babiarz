@@ -1,0 +1,24 @@
+package pl.futurecollars.invoicing.db.file
+
+import pl.futurecollars.invoicing.helpers.TestHelpers
+import pl.futurecollars.invoicing.model.Invoice
+import spock.lang.Specification
+
+class JsonServiceTest extends Specification {
+    JsonService jsonService
+
+    void setup() {
+        jsonService = new JsonService()
+    }
+
+    def "should write invoice to file and read it back to invoice"() {
+        given:
+        Invoice invoice = TestHelpers.invoice1
+        when:
+        String invoiceAsJson = jsonService.writeInvoiceAsJson(invoice)
+        and:
+        Invoice invoiceReadBackFromJson = jsonService.readJsonAsInvoice(invoiceAsJson)
+        then:
+        invoice == invoiceReadBackFromJson
+    }
+}
