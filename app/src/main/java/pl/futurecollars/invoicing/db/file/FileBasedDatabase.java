@@ -67,14 +67,14 @@ public class FileBasedDatabase implements Database {
           .stream()
           .filter(line -> !containsId(line, id))
           .collect(Collectors.toList());
-      if (listOfInvoicesWithoutOneWithGivenID.size() == allInvoicesInDatabase.size()){
+      if (listOfInvoicesWithoutOneWithGivenID.size() == allInvoicesInDatabase.size()) {
         throw new IllegalArgumentException("Id:" + id + "does not exist");
       }
       updatedInvoice.setId(id);
       String invoice = jsonService.writeInvoiceAsJson(updatedInvoice);
       listOfInvoicesWithoutOneWithGivenID.add(invoice);
 
-      fileService.overwriteLinesInFile(databasePath,listOfInvoicesWithoutOneWithGivenID);
+      fileService.overwriteLinesInFile(databasePath, listOfInvoicesWithoutOneWithGivenID);
 
     } catch (IOException e) {
       throw new RuntimeException("Failed to update invoice id:" + id + "in database");
@@ -90,16 +90,14 @@ public class FileBasedDatabase implements Database {
           .stream()
           .filter(line -> !containsId(line, id))
           .collect(Collectors.toList());
-      if (listOfInvoicesWithoutOneWithGivenID.size() == allInvoicesInDatabase.size()){
+      if (listOfInvoicesWithoutOneWithGivenID.size() == allInvoicesInDatabase.size()) {
         throw new IllegalArgumentException("Id:" + id + "does not exist");
       }
 
-      fileService.overwriteLinesInFile(databasePath,listOfInvoicesWithoutOneWithGivenID);
+      fileService.overwriteLinesInFile(databasePath, listOfInvoicesWithoutOneWithGivenID);
 
     } catch (IOException e) {
       throw new RuntimeException("Failed to delete invoice id:" + id + "from database");
     }
-
-
   }
 }

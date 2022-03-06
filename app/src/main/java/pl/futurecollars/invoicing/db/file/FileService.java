@@ -15,7 +15,7 @@ public class FileService {
     Files.write(path, line.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
   }
 
-  public void overwriteLinesInFile (Path path, List<String> lines) throws IOException {
+  public void overwriteLinesInFile(Path path, List<String> lines) throws IOException {
     Files.write(path, lines, StandardOpenOption.TRUNCATE_EXISTING);
   }
 
