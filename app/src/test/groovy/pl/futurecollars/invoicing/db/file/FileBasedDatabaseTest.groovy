@@ -79,4 +79,5 @@ class FileBasedDatabaseTest extends Specification {
         [invoice1, invoice3] == fileBasedDatabase.getAll()
 
     }
+
 }
