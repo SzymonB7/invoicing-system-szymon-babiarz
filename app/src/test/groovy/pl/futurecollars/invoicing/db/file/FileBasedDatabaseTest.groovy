@@ -37,6 +37,21 @@ class FileBasedDatabaseTest extends Specification {
         Optional.of(invoice) == fileBasedDatabase.getById(1)
     }
 
+    def 'should get correct invoice by id and return empty optional if there is no invoice with given id'(){
+        given:
+        Invoice invoice1 = TestHelpers.invoice1
+        Invoice invoice2 = TestHelpers.invoice2
+        when:
+        fileBasedDatabase.save(invoice1)
+        fileBasedDatabase.save(invoice2)
+        then:
+        Optional.of(invoice1) == fileBasedDatabase.getById(1)
+        Optional.of(invoice2) == fileBasedDatabase.getById(2)
+        and:
+        fileBasedDatabase.getById(4) == Optional.empty()
+
+    }
+
     def 'should return list of invoices when getAll method is called'() {
         given:
         Invoice invoice1 = TestHelpers.invoice1
