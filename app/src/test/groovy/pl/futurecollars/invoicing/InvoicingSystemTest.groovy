@@ -5,7 +5,7 @@ package pl.futurecollars.invoicing
 
 import spock.lang.Specification
 
-class AppTest extends Specification {
+class InvoicingSystemTest extends Specification {
 //    def "application has a greeting"() {
 //        setup:
 //        def app = new App()
@@ -18,7 +18,7 @@ class AppTest extends Specification {
 //    }
     def "dummy test to cover main" () {
         setup:
-        def app = new App()
+        def app = new InvoicingSystem()
 
         and:
         app.main()
