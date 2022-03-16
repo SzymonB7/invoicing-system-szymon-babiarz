@@ -75,25 +75,32 @@ test {
 }
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "pl/futurecollars/invoicing/**/InvoiceController.class",
+            ])
+        }))
+    }
 }
 
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                counter = 'BRANCH'
-                minimum = 0.8
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                limit {
+                    counter = 'BRANCH'
+                    minimum = 0.8
+                }
             }
-        }
 
-        rule {
-            limit {
-                counter = 'LINE'
-                minimum = 0.8
+            rule {
+                limit {
+                    counter = 'LINE'
+                    minimum = 0.8
+                }
             }
         }
     }
-}
 
 

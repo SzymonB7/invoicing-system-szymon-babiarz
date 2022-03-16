@@ -20,7 +20,6 @@ public class InvoiceController {
 
   private final InvoiceService invoiceService = new InvoiceService(new InMemoryDatabase());
 
-
   @PostMapping
   public Integer save(@RequestBody Invoice invoice) {
     return invoiceService.save(invoice);
@@ -33,15 +32,15 @@ public class InvoiceController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Invoice> getById (@PathVariable Integer id) {
+  public ResponseEntity<Invoice> getById(@PathVariable Integer id) {
     return invoiceService.getById(id)
         .map(invoice -> ResponseEntity.ok().body(invoice))
         .orElse(ResponseEntity.notFound().build());
   }
 
-  @PutMapping
-  public ResponseEntity<?> update (Integer id, Invoice updatedInvoice){
-    try{
+  @PutMapping("/{id}")
+  public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Invoice updatedInvoice) {
+    try {
       invoiceService.update(id, updatedInvoice);
       return ResponseEntity.ok().build();
     } catch (RuntimeException exception) {
@@ -49,9 +48,9 @@ public class InvoiceController {
     }
   }
 
-  @DeleteMapping
-  public ResponseEntity<?> delete (Integer id) {
-    try{
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> delete(@PathVariable Integer id) {
+    try {
       invoiceService.delete(id);
       return ResponseEntity.ok().build();
     } catch (RuntimeException exception) {

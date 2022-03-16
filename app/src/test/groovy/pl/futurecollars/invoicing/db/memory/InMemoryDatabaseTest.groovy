@@ -76,7 +76,7 @@ class InMemoryDatabaseTest extends Specification {
         database.getById(2) == Optional.of(invoice3)
     }
 
-    def "Delete"() {
+    def "should delete correct invoice from database"() {
         when:
         database.save(invoice3)
         database.save(invoice1)
@@ -85,5 +85,12 @@ class InMemoryDatabaseTest extends Specification {
         then:
         database.getAll().size() == 2
         database.getAll() == [invoice3, invoice1]
+    }
+
+    def "should throw an exception if an invoice with given id does not exist while deleting"(){
+        when:
+        database.delete(1)
+        then:
+        thrown(IllegalArgumentException)
     }
 }
