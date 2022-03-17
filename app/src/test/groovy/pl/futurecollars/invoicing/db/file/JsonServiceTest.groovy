@@ -22,9 +22,4 @@ class JsonServiceTest extends Specification {
         invoice == invoiceReadBackFromJson
     }
 
-    def "dummy"() {
-        expect:
-        println(jsonService.writeInvoiceAsJson(TestHelpers.invoice1))
-        println(jsonService.writeInvoiceAsJson(TestHelpers.invoice2))
-    }
 }
