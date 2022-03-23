@@ -40,6 +40,9 @@ public class InMemoryDatabase implements Database {
 
   @Override
   public void delete(Integer id) {
+    if (!invoices.containsKey(id)) {
+      throw new IllegalArgumentException("Id " + id + " does not exist");
+    }
     invoices.remove(id);
   }
 }

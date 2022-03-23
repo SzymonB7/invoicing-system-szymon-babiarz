@@ -21,4 +21,5 @@ class JsonServiceTest extends Specification {
         then:
         invoice == invoiceReadBackFromJson
     }
+
 }

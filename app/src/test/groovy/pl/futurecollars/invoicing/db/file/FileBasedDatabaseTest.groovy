@@ -37,7 +37,7 @@ class FileBasedDatabaseTest extends Specification {
         Optional.of(invoice) == fileBasedDatabase.getById(1)
     }
 
-    def 'should get correct invoice by id and return empty optional if there is no invoice with given id'(){
+    def 'should get correct invoice by id and return empty optional if there is no invoice with given id'() {
         given:
         Invoice invoice1 = TestHelpers.invoice1
         Invoice invoice2 = TestHelpers.invoice2
@@ -77,6 +77,14 @@ class FileBasedDatabaseTest extends Specification {
         fileBasedDatabase.update(2, invoice3)
         then:
         Optional.of(invoice3) == fileBasedDatabase.getById(2)
+        fileBasedDatabase.getAll().size() == 2
+    }
+
+    def 'should throw an exception if given id does not exist when updating invoice'() {
+        when:
+        fileBasedDatabase.update(2, TestHelpers.invoice1)
+        then:
+        thrown(RuntimeException)
     }
 
     def 'should delete correct invoice'() {
@@ -95,4 +103,10 @@ class FileBasedDatabaseTest extends Specification {
 
     }
 
+    def 'should throw an exception if given id does not exist when deleting invoice'() {
+        when:
+        fileBasedDatabase.delete(2)
+        then:
+        thrown(RuntimeException)
+    }
 }
