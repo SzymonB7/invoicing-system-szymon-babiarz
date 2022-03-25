@@ -14,14 +14,14 @@ public class DatabaseConfiguration {
   private static final String INVOICES_FILE_NAME = "invoices.txt";
 
   @Bean
-  public IdService idService (FileService fileService) throws IOException {
+  public IdService idService(FileService fileService) throws IOException {
     Path idFilePath = Files.createTempFile(DATABASE_LOCATION, ID_FILE_NAME);
     return new IdService(idFilePath, fileService);
   }
 
   @Bean
-  public Database fileBasedDatabase (IdService idProvider, FileService fileservice, JsonService jsonService) throws IOException {
+  public Database fileBasedDatabase(IdService idService, FileService fileservice, JsonService jsonService) throws IOException {
     Path databaseFilePath = Files.createTempFile(DATABASE_LOCATION, INVOICES_FILE_NAME);
-    return new FileBasedDatabase(fileservice, jsonService, idProvider, databaseFilePath);
+    return new FileBasedDatabase(fileservice, jsonService, idService, databaseFilePath);
   }
 }

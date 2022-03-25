@@ -23,7 +23,6 @@ public class InvoiceController {
     this.invoiceService = invoiceService;
   }
 
-
   @PostMapping
   public Integer save(@RequestBody Invoice invoice) {
     return invoiceService.save(invoice);
