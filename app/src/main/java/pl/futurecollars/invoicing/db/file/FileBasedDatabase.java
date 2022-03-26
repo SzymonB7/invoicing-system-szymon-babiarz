@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Repository;
 import pl.futurecollars.invoicing.db.Database;
+import pl.futurecollars.invoicing.exceptions.InvoiceNotFoundException;
 import pl.futurecollars.invoicing.model.Invoice;
 
-@Repository
 @AllArgsConstructor
 public class FileBasedDatabase implements Database {
   private final FileService fileService;
@@ -28,7 +27,7 @@ public class FileBasedDatabase implements Database {
       fileService.appendLineToFile(databasePath, invoiceAsJson);
       return invoice.getId();
     } catch (IOException e) {
-      throw new RuntimeException("Failed to save invoice in database");
+      throw new RuntimeException("Failed to save invoice in database", e);
     }
   }
 
@@ -72,12 +71,12 @@ public class FileBasedDatabase implements Database {
       updatedInvoice.setId(id);
       String updatedInvoiceAsJson = jsonService.writeInvoiceAsJson(updatedInvoice);
       invoicesInDatabase.set(id - 1, updatedInvoiceAsJson);
-      invoicesInDatabase.remove(id);
       fileService.overwriteLinesInFile(databasePath, invoicesInDatabase);
     } catch (IOException e) {
       throw new RuntimeException("Failed to update invoice id:" + id + "in database");
+    } catch (IndexOutOfBoundsException e) {
+      throw new InvoiceNotFoundException("Id" + id + "does not exist");
     }
-
   }
 
   @Override
@@ -89,6 +88,8 @@ public class FileBasedDatabase implements Database {
 
     } catch (IOException e) {
       throw new RuntimeException("Failed to delete invoice id:" + id + "from database");
+    } catch (IndexOutOfBoundsException e) {
+      throw new InvoiceNotFoundException("Id" + id + "does not exist");
     }
   }
 }

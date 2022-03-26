@@ -1,5 +1,6 @@
 package pl.futurecollars.invoicing.db.memory
 
+import pl.futurecollars.invoicing.exceptions.InvoiceNotFoundException
 import pl.futurecollars.invoicing.model.Company
 import pl.futurecollars.invoicing.model.Invoice
 import pl.futurecollars.invoicing.model.InvoiceEntry
@@ -91,6 +92,6 @@ class InMemoryDatabaseTest extends Specification {
         when:
         database.delete(1)
         then:
-        thrown(IllegalArgumentException)
+        thrown(InvoiceNotFoundException)
     }
 }

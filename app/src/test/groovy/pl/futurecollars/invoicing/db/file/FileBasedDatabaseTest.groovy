@@ -1,5 +1,6 @@
 package pl.futurecollars.invoicing.db.file
 
+import pl.futurecollars.invoicing.exceptions.InvoiceNotFoundException
 import pl.futurecollars.invoicing.helpers.TestHelpers
 import pl.futurecollars.invoicing.model.Invoice
 import spock.lang.Specification
@@ -84,7 +85,7 @@ class FileBasedDatabaseTest extends Specification {
         when:
         fileBasedDatabase.update(2, TestHelpers.invoice1)
         then:
-        thrown(RuntimeException)
+        thrown(InvoiceNotFoundException)
     }
 
     def 'should delete correct invoice'() {
@@ -107,6 +108,6 @@ class FileBasedDatabaseTest extends Specification {
         when:
         fileBasedDatabase.delete(2)
         then:
-        thrown(RuntimeException)
+        thrown(InvoiceNotFoundException)
     }
 }

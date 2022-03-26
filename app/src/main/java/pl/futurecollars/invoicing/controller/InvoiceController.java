@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.futurecollars.invoicing.exceptions.InvoiceNotFoundException;
 import pl.futurecollars.invoicing.model.Invoice;
 import pl.futurecollars.invoicing.service.InvoiceService;
 
@@ -46,7 +47,7 @@ public class InvoiceController {
     try {
       invoiceService.update(id, updatedInvoice);
       return ResponseEntity.ok().build();
-    } catch (RuntimeException exception) {
+    } catch (InvoiceNotFoundException exception) {
       return ResponseEntity.notFound().build();
     }
   }
@@ -56,7 +57,7 @@ public class InvoiceController {
     try {
       invoiceService.delete(id);
       return ResponseEntity.ok().build();
-    } catch (RuntimeException exception) {
+    } catch (InvoiceNotFoundException exception) {
       return ResponseEntity.notFound().build();
     }
   }
