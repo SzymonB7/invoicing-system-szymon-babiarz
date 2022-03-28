@@ -65,7 +65,7 @@ class InMemoryDatabaseTest extends Specification {
         database.save(invoice2)
         database.update(3, invoice3)
         then:
-        thrown(IllegalArgumentException)
+        thrown(InvoiceNotFoundException)
     }
 
     def "should update an invoice in database under given id"() {
