@@ -5,9 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 import pl.futurecollars.invoicing.db.Database;
+import pl.futurecollars.invoicing.exceptions.InvoiceNotFoundException;
 import pl.futurecollars.invoicing.model.Invoice;
 
+@Primary
+@Repository
 public class InMemoryDatabase implements Database {
   private final Map<Integer, Invoice> invoices = new HashMap<>();
   private Integer nextId = 1;
@@ -32,7 +37,7 @@ public class InMemoryDatabase implements Database {
   @Override
   public void update(Integer id, Invoice updatedInvoice) {
     if (!invoices.containsKey(id)) {
-      throw new IllegalArgumentException("Id " + id + " does not exist");
+      throw new InvoiceNotFoundException("Id " + id + " does not exist");
     }
     updatedInvoice.setId(id);
     invoices.put(id, updatedInvoice);
@@ -41,7 +46,7 @@ public class InMemoryDatabase implements Database {
   @Override
   public void delete(Integer id) {
     if (!invoices.containsKey(id)) {
-      throw new IllegalArgumentException("Id " + id + " does not exist");
+      throw new InvoiceNotFoundException("Id " + id + " does not exist");
     }
     invoices.remove(id);
   }
