@@ -61,8 +61,8 @@ public class Invoice {
     }
 
     public String toString() {
-      return "Invoice.InvoiceBuilder(id=" + ", date=" + this.date + ", sellerCompany=" + this.sellerCompany + ", buyerCompany=" +
-          this.buyerCompany + ", invoiceEntries=" + this.invoiceEntries + ")";
+      return "Invoice.InvoiceBuilder(id=" + ", date=" + this.date + ", sellerCompany=" + this.sellerCompany + ", buyerCompany="
+          + this.buyerCompany + ", invoiceEntries=" + this.invoiceEntries + ")";
     }
   }
 }

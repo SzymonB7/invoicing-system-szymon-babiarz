@@ -12,7 +12,6 @@ import pl.futurecollars.invoicing.db.Database;
 import pl.futurecollars.invoicing.exceptions.InvoiceNotFoundException;
 import pl.futurecollars.invoicing.model.Invoice;
 
-
 @AllArgsConstructor
 public class FileBasedDatabase implements Database {
   private final FileService fileService;
