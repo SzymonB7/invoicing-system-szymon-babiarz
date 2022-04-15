@@ -28,7 +28,7 @@ class InvoiceControllerOtherTests extends Specification {
     def "helper_post"(
             Invoice invoice) {
 
-        def invoiceAsJson = jsonService.writeInvoiceAsJson(invoice)
+        def invoiceAsJson = jsonService.writeObjectAsJson(invoice)
 
         def response = mockMvc.perform(post("/invoices").content(invoiceAsJson).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -115,7 +115,7 @@ class InvoiceControllerOtherTests extends Specification {
         given:
         def invoice1 = TestHelpers.invoice(1)
         invoice1.setId(1)
-        def invoiceAsJson = jsonService.writeInvoiceAsJson(invoice1)
+        def invoiceAsJson = jsonService.writeObjectAsJson(invoice1)
 
         when:
         def response = mockMvc.perform(post("/invoices").content(invoiceAsJson).contentType(MediaType.APPLICATION_JSON))
@@ -221,7 +221,7 @@ class InvoiceControllerOtherTests extends Specification {
         helper_post(invoice1)
         def modifiedInvoice1 = invoice1
         modifiedInvoice1.date = LocalDate.of(2022, 4, 8)
-        def invoiceAsJson = jsonService.writeInvoiceAsJson(modifiedInvoice1)
+        def invoiceAsJson = jsonService.writeObjectAsJson(modifiedInvoice1)
 
         expect:
         mockMvc.perform(put("/invoices/1").content(invoiceAsJson).contentType(MediaType.APPLICATION_JSON))
