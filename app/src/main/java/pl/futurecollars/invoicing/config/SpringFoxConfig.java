@@ -13,7 +13,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SpringFoxConfig {
   @Bean
-  public Docket docket () {
+  public Docket docket() {
     return new Docket(DocumentationType.SWAGGER_2)
         .select()
         .apis(RequestHandlerSelectors.basePackage("pl.futurecollars"))
@@ -25,7 +25,7 @@ public class SpringFoxConfig {
         .apiInfo(apiInfo());
   }
 
-  private ApiInfo apiInfo () {
+  private ApiInfo apiInfo() {
     return new ApiInfoBuilder().description("Application for managing invoices")
         .license("No licence - private")
         .title("Interdimensional Invoicing")

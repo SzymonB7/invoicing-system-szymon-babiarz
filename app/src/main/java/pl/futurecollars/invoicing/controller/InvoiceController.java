@@ -11,7 +11,6 @@ import pl.futurecollars.invoicing.exceptions.InvoiceNotFoundException;
 import pl.futurecollars.invoicing.model.Invoice;
 import pl.futurecollars.invoicing.service.InvoiceService;
 
-
 @RestController
 public class InvoiceController implements InvoiceApi {
 
