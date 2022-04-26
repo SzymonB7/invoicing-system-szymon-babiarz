@@ -2,6 +2,7 @@ package pl.futurecollars.invoicing.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ public class TaxCalculatorController {
 
   @ApiOperation(value = "Get a summary of income, costs and taxes")
   @GetMapping(value = "/{taxIdentificationNumber}")
-  public TaxBill getTaxBill(@PathVariable String taxIdentificationNumber) {
+  public TaxBill getTaxBill(@PathVariable @ApiParam(example = "777-999-79-79")String taxIdentificationNumber) {
     return taxCalculatorService.calculateTaxes(taxIdentificationNumber);
   }
 }
