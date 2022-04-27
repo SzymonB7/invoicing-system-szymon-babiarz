@@ -1,76 +1,111 @@
 package pl.futurecollars.invoicing.controller
 
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import spock.lang.Unroll
+import org.springframework.boot.test.context.SpringBootTest
 
-@Unroll
 @AutoConfigureMockMvc
+@SpringBootTest
 class TaxCalculatorControllerTest extends ControllerTest {
 
     def "zeros are returned when no invoices were created"() {
         when:
-        def taxCalculatorResponse = calculateTax("0")
+        def response = calculateTax("0")
 
         then:
-        taxCalculatorResponse.income == 0
-        taxCalculatorResponse.costs == 0
-        taxCalculatorResponse.incomingVat == 0
-        taxCalculatorResponse.outgoingVat == 0
-        taxCalculatorResponse.earnings == 0
-        taxCalculatorResponse.vatToPay == 0
+        response.income == 0
+        response.costs == 0
+        response.incomingVat == 0
+        response.outgoingVat == 0
+        response.earnings == 0
+        response.vatToPay == 0
     }
 
-    def "zeros are returned when taxIdNumber not exist in database"() {
+    def "zeros are returned when taxIdentificationNumber not exist in database"() {
         given:
         addUniqueInvoices(5)
 
         when:
-        def taxCalculatorResponse = calculateTax("incorrect_tax_id_num")
+        def response = calculateTax("incorrect_tax_identification_number")
 
         then:
-        taxCalculatorResponse.income == 0
-        taxCalculatorResponse.costs == 0
-        taxCalculatorResponse.incomingVat == 0
-        taxCalculatorResponse.outgoingVat == 0
-        taxCalculatorResponse.earnings == 0
-        taxCalculatorResponse.vatToPay == 0
+        response.income == 0
+        response.costs == 0
+        response.incomingVat == 0
+        response.outgoingVat == 0
+        response.earnings == 0
+        response.vatToPay == 0
     }
 
-    def "correct values are returned when providing correct taxIdNumber"() {
+    def "should return correct seller values"() {
         given:
-        addUniqueInvoices(15)
+        addUniqueInvoices(8)
 
         when:
-        def taxCalculatorResponse = calculateTax("9")
+        def response = calculateTax("5")
 
         then:
-        taxCalculatorResponse.income == 45000
-        taxCalculatorResponse.costs == 0
-        taxCalculatorResponse.incomingVat == 3600.0
-        taxCalculatorResponse.outgoingVat == 0
-        taxCalculatorResponse.earnings == 45000
-        taxCalculatorResponse.vatToPay == 3600.0
+        response.income == 1500
+        response.costs == 0
+        response.incomingVat == 120.0
+        response.outgoingVat == 0
+        response.earnings == 1500
+        response.vatToPay == 120.0
 
         when:
-        taxCalculatorResponse = calculateTax("16")
+        addUniqueInvoices(8)
+        response = calculateTax("5")
 
         then:
-        taxCalculatorResponse.income == 0
-        taxCalculatorResponse.costs == 21000
-        taxCalculatorResponse.incomingVat == 0
-        taxCalculatorResponse.outgoingVat == 1680.0
-        taxCalculatorResponse.earnings == -21000
-        taxCalculatorResponse.vatToPay == -1680.0
+        response.income == 3000
+        response.costs == 0
+        response.incomingVat == 240.0
+        response.outgoingVat == 0
+        response.earnings == 3000
+        response.vatToPay == 240.0
+
+    }
+
+    def "should return correct buyer values"() {
+        given:
+        addUniqueInvoices(8)
 
         when:
-        taxCalculatorResponse = calculateTax("11")
+        def response = calculateTax("13")
 
         then:
-        taxCalculatorResponse.income == 66000
-        taxCalculatorResponse.costs == 1000
-        taxCalculatorResponse.incomingVat == 5280.0
-        taxCalculatorResponse.outgoingVat == 80.0
-        taxCalculatorResponse.earnings == 65000
-        taxCalculatorResponse.vatToPay == 5200.0
+        response.income == 0
+        response.costs == 600
+        response.incomingVat == 0
+        response.outgoingVat == 48.0
+        response.earnings == -600
+        response.vatToPay == -48.0
+
+        when:
+        addUniqueInvoices(8)
+        response = calculateTax("13")
+
+        then:
+        response.income == 0
+        response.costs == 1200
+        response.incomingVat == 0
+        response.outgoingVat == 96.0
+        response.earnings == -1200
+        response.vatToPay == -96.0
+    }
+
+    def "should return correct seller and buyer values"() {
+        given:
+        addUniqueInvoices(23)
+
+        when:
+        def response = calculateTax("15")
+
+        then:
+        response.income == 12000
+        response.costs == 1500
+        response.incomingVat == 960.0
+        response.outgoingVat == 120.0
+        response.earnings == 10500
+        response.vatToPay == 840.0
     }
 }

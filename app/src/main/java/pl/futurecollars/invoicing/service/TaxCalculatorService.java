@@ -12,6 +12,7 @@ import pl.futurecollars.invoicing.model.TaxBill;
 @Service
 @AllArgsConstructor
 public class TaxCalculatorService {
+
   private final Database database;
 
   public Predicate<Invoice> buyerPredicate(String taxIdentificationNumber) {
@@ -48,13 +49,13 @@ public class TaxCalculatorService {
 
   public TaxBill calculateTaxes(String taxIdentificationNumber) {
     return TaxBill.builder()
-        .income(calculateIncome(taxIdentificationNumber))
-        .costs(calculateCosts(taxIdentificationNumber))
-        .incomingVat(calculateIncomingVat(taxIdentificationNumber))
-        .outgoingVat(calculateOutgoingVat(taxIdentificationNumber))
-        .earnings(calculateEarnings(taxIdentificationNumber))
-        .vatToPay(calculateVatToPay(taxIdentificationNumber))
-        .build();
+          .income(calculateIncome(taxIdentificationNumber))
+          .costs(calculateCosts(taxIdentificationNumber))
+          .incomingVat(calculateIncomingVat(taxIdentificationNumber))
+          .outgoingVat(calculateOutgoingVat(taxIdentificationNumber))
+          .earnings(calculateEarnings(taxIdentificationNumber))
+          .vatToPay(calculateVatToPay(taxIdentificationNumber))
+          .build();
   }
 
 }

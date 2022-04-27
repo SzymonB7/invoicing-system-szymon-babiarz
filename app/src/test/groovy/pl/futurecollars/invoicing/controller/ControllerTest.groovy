@@ -9,6 +9,7 @@ import pl.futurecollars.invoicing.db.file.JsonService
 import pl.futurecollars.invoicing.model.Invoice
 import pl.futurecollars.invoicing.model.TaxBill
 import spock.lang.Specification
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import static pl.futurecollars.invoicing.helpers.TestHelpers.invoice
@@ -18,7 +19,7 @@ import static pl.futurecollars.invoicing.helpers.TestHelpers.invoice
 class ControllerTest extends Specification {
 
     static final String INVOICES_ENDPOINT = "/invoices"
-    static final String TAXES_ENDPOINT = "/taxes"
+    static final String TAXES_ENDPOINT = "/tax-bill"
 
     @Autowired
     MockMvc mockMvc
@@ -53,7 +54,7 @@ class ControllerTest extends Specification {
         jsonService.readJsonAsObject(response, Invoice[])
     }
 
-    List<Invoice> addUniqueInvoices(int count) {
+    protected  List<Invoice> addUniqueInvoices(int count) {
         (1..count).collect { id ->
             def invoice = invoice(id)
             invoice.id = addOneInvoice(jsonService.writeObjectAsJson(invoice))
