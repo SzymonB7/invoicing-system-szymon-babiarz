@@ -54,7 +54,7 @@ class ControllerTest extends Specification {
         jsonService.readJsonAsObject(response, Invoice[])
     }
 
-    protected  List<Invoice> addUniqueInvoices(int count) {
+    List<Invoice> addUniqueInvoices(int count) {
         (1..count).collect { id ->
             def invoice = invoice(id)
             invoice.id = addOneInvoice(jsonService.writeObjectAsJson(invoice))
