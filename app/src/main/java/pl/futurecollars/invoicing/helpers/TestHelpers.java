@@ -19,6 +19,8 @@ public class TestHelpers {
   public static Invoice invoice1 = new Invoice(LocalDate.of(2020, 10, 11), company1, company2, List.of(invoiceEntry1, invoiceEntry2, invoiceEntry3));
   public static Invoice invoice2 = new Invoice(LocalDate.of(2019, 11, 15), company3, company2, List.of(invoiceEntry1, invoiceEntry2, invoiceEntry3));
   public static Invoice invoice3 = new Invoice(LocalDate.of(2020, 12, 13), company2, company3, List.of(invoiceEntry1, invoiceEntry2));
+  public static Invoice invoice4 = new Invoice(LocalDate.of(2020, 12, 13), company1, company3, List.of(invoiceEntry3));
+  public static Invoice invoice5 = new Invoice(LocalDate.of(2020, 12, 13), company2, company1, List.of(invoiceEntry3));
 
   public static Company company(int id) {
     return Company.builder()
