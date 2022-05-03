@@ -53,17 +53,17 @@ class TaxCalculatorServiceTest extends Specification {
     def "income method should return correct income from 3 invoices with the same seller"() {
 
         given:
-        invoice2.setSellerCompany(invoice1.getSellerCompany())
-        invoice3.setSellerCompany(invoice1.getSellerCompany())
+        invoice2.setSeller(invoice1.getSeller())
+        invoice3.setSeller(invoice1.getSeller())
         database.save(invoice1)
         database.save(invoice2)
         database.save(invoice3)
 
-        Function<InvoiceEntry, BigDecimal> incomeMapper = InvoiceEntry -> InvoiceEntry.getPrice()
+        Function<InvoiceEntry, BigDecimal> incomeMapper = InvoiceEntry -> InvoiceEntry.getNetPrice()
         def expectedResult = helper_method(incomeMapper)
 
         when:
-        def incomeTaxCalculator = taxCalculatorService.calculateIncome(invoice1.getSellerCompany().getTaxIdNumber())
+        def incomeTaxCalculator = taxCalculatorService.calculateIncome(invoice1.getSeller().getTaxIdentificationNumber())
 
         then:
         expectedResult == incomeTaxCalculator
@@ -73,17 +73,17 @@ class TaxCalculatorServiceTest extends Specification {
     def "cost method should return correct cost from 3 invoices with the same buyer"() {
 
         given:
-        invoice2.setBuyerCompany(invoice1.getBuyerCompany())
-        invoice3.setBuyerCompany(invoice1.getBuyerCompany())
+        invoice2.setBuyer(invoice1.getBuyer())
+        invoice3.setBuyer(invoice1.getBuyer())
         database.save(invoice1)
         database.save(invoice2)
         database.save(invoice3)
 
-        Function<InvoiceEntry, BigDecimal> costMapper = InvoiceEntry -> InvoiceEntry.getPrice()
+        Function<InvoiceEntry, BigDecimal> costMapper = InvoiceEntry -> InvoiceEntry.getNetPrice()
         def expectedResult = helper_method(costMapper)
 
         when:
-        def costTaxCalculator = taxCalculatorService.calculateCosts(invoice1.getBuyerCompany().getTaxIdNumber())
+        def costTaxCalculator = taxCalculatorService.calculateCosts(invoice1.getBuyer().getTaxIdentificationNumber())
 
         then:
         expectedResult == costTaxCalculator
@@ -93,8 +93,8 @@ class TaxCalculatorServiceTest extends Specification {
     def "IncomingVat"() {
 
         given:
-        invoice2.setSellerCompany(invoice1.getSellerCompany())
-        invoice3.setSellerCompany(invoice1.getSellerCompany())
+        invoice2.setSeller(invoice1.getSeller())
+        invoice3.setSeller(invoice1.getSeller())
         database.save(invoice1)
         database.save(invoice2)
         database.save(invoice3)
@@ -103,7 +103,7 @@ class TaxCalculatorServiceTest extends Specification {
         def expectedResult = helper_method(incomingVatMapper)
 
         when:
-        def incomeVatTaxCalculator = taxCalculatorService.calculateIncomingVat(invoice1.getSellerCompany().getTaxIdNumber())
+        def incomeVatTaxCalculator = taxCalculatorService.calculateCollectedVat(invoice1.getSeller().getTaxIdentificationNumber())
 
         then:
         expectedResult == incomeVatTaxCalculator
@@ -113,8 +113,8 @@ class TaxCalculatorServiceTest extends Specification {
     def "OutgoingVat method should return correct vat"() {
 
         given:
-        invoice2.setBuyerCompany(invoice1.getBuyerCompany())
-        invoice3.setBuyerCompany(invoice1.getBuyerCompany())
+        invoice2.setBuyer(invoice1.getBuyer())
+        invoice3.setBuyer(invoice1.getBuyer())
         database.save(invoice1)
         database.save(invoice2)
         database.save(invoice3)
@@ -123,7 +123,7 @@ class TaxCalculatorServiceTest extends Specification {
         def expectedResult = helper_method(outgoingVatMapper)
 
         when:
-        def outgoingVatTaxCalculator = taxCalculatorService.calculateOutgoingVat(invoice1.getBuyerCompany().getTaxIdNumber())
+        def outgoingVatTaxCalculator = taxCalculatorService.calculatePaidVat(invoice1.getBuyer().getTaxIdentificationNumber())
 
         then:
         expectedResult == outgoingVatTaxCalculator
@@ -135,7 +135,7 @@ class TaxCalculatorServiceTest extends Specification {
         database.save(invoice4)
         database.save(invoice5)
 
-        Function<InvoiceEntry, BigDecimal> mapper = InvoiceEntry -> InvoiceEntry.getPrice()
+        Function<InvoiceEntry, BigDecimal> mapper = InvoiceEntry -> InvoiceEntry.getNetPrice()
 
 
         def expectedIncome = invoice4.getInvoiceEntries().stream()
@@ -149,7 +149,7 @@ class TaxCalculatorServiceTest extends Specification {
         def expectedResult = expectedIncome - expectedCost
 
         when:
-        def earningsTaxCalculator = taxCalculatorService.calculateEarnings("11")
+        def earningsTaxCalculator = taxCalculatorService.calculateEarnings("5")
 
         then:
         expectedResult == earningsTaxCalculator

@@ -15,17 +15,17 @@ public class Invoice {
   @ApiModelProperty(value = "Date when invoice was created", required = true)
   private LocalDate date;
   @ApiModelProperty(value = "Company which sold the product/service", required = true)
-  private Company sellerCompany;
+  private Company seller;
   @ApiModelProperty(value = "Company which bought the product/service", required = true)
-  private Company buyerCompany;
+  private Company buyer;
   @ApiModelProperty(value = "List of products/services", required = true)
   private List<InvoiceEntry> invoiceEntries;
 
   public Invoice(LocalDate date, Company sellerCompany, Company buyerCompany,
                  List<InvoiceEntry> invoiceEntries) {
     this.date = date;
-    this.sellerCompany = sellerCompany;
-    this.buyerCompany = buyerCompany;
+    this.seller = sellerCompany;
+    this.buyer = buyerCompany;
     this.invoiceEntries = invoiceEntries;
   }
 
