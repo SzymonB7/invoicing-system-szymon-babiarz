@@ -14,8 +14,17 @@ public class TaxBill {
 
   private BigDecimal income;
   private BigDecimal costs;
-  private BigDecimal incomingVat;
-  private BigDecimal outgoingVat;
+  private BigDecimal incomeMinusCosts;
+  private BigDecimal pensionInsurance;
+  private BigDecimal incomeMinusCostsMinusPensionInsurance;
+  private BigDecimal taxCalculationBase;
+  private BigDecimal incomeTax;
+  private BigDecimal healthInsuranceFull;
+  private BigDecimal healthInsuranceToSubtract;
+  private BigDecimal incomeTaxMinusHealthInsurance;
+  private BigDecimal finalIncomeTax;
+  private BigDecimal collectedVat;
+  private BigDecimal paidVat;
   private BigDecimal earnings;
   private BigDecimal vatToPay;
 
