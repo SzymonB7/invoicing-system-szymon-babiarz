@@ -25,6 +25,7 @@ class ExtendedTaxCalculatorServiceTest extends Specification {
     }
 
     def "should return proper result of method CalculateCompanyCostsConsideringPersonalCarUsage"() {
+
         when:
         BigDecimal actualResult = taxCalculatorService.calculateCompanyCostsConsideringPersonalCarUsage(TestHelpers.invoiceEntry6)
         then:

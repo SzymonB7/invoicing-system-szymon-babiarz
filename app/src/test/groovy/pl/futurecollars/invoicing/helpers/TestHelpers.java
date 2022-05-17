@@ -24,7 +24,6 @@ public class TestHelpers {
   public static InvoiceEntry invoiceEntry1 = new InvoiceEntry("Baton", 1, BigDecimal.valueOf(100), BigDecimal.valueOf(100 * 0.08), Vat.VAT_8, null);
   public static InvoiceEntry invoiceEntry2 = new InvoiceEntry("Chleb", 1, BigDecimal.valueOf(200), BigDecimal.valueOf(200 * 0.05), Vat.VAT_5, null);
   public static InvoiceEntry invoiceEntry3 = new InvoiceEntry("Kakao", 1, BigDecimal.valueOf(300), BigDecimal.valueOf(300 * 0.23), Vat.VAT_23, null);
-
   public static InvoiceEntry invoiceEntry4 = new InvoiceEntry("fuel", 1, BigDecimal.valueOf(123), BigDecimal.valueOf(123 * 0.08), Vat.VAT_8, car1);
   public static InvoiceEntry invoiceEntry5 = new InvoiceEntry("fuel", 1, BigDecimal.valueOf(4000), BigDecimal.valueOf(4000 * 0.05), Vat.VAT_5, car2);
   public static InvoiceEntry invoiceEntry6 = new InvoiceEntry("fuel", 1, BigDecimal.valueOf(5500), BigDecimal.valueOf(5500 * 0.23), Vat.VAT_23, car3);

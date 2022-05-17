@@ -12,7 +12,6 @@ import pl.futurecollars.invoicing.model.Company
 import pl.futurecollars.invoicing.model.Invoice
 import pl.futurecollars.invoicing.model.TaxBill
 import spock.lang.Specification
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
@@ -34,7 +33,6 @@ class ExtendedTaxCalculatorControllerTest extends Specification {
     private Invoice invoice6
     private Invoice invoice7
     private Invoice invoice8
-
 
     private Company company
 
