@@ -9,15 +9,15 @@ import pl.futurecollars.invoicing.model.Invoice;
 import pl.futurecollars.invoicing.model.InvoiceEntry;
 
 public interface Database {
-  Integer save(Invoice invoice);
+  Long save(Invoice invoice);
 
-  Optional<Invoice> getById(Integer id);
+  Optional<Invoice> getById(long id);
 
   List<Invoice> getAll();
 
-  void update(Integer id, Invoice updatedInvoice);
+  void update(Long id, Invoice updatedInvoice);
 
-  void delete(Integer id);
+  void delete(Long id);
 
   default BigDecimal visit(Predicate<Invoice> invoicePredicate,
                            Function<InvoiceEntry, BigDecimal> invoiceEntryToAmount) {
@@ -28,4 +28,7 @@ public interface Database {
         .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
+  default void reset() {
+    getAll().forEach(invoice -> delete(invoice.getId()));
+  }
 }

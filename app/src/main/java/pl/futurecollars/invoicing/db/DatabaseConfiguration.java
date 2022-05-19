@@ -15,6 +15,8 @@ import pl.futurecollars.invoicing.db.file.IdService;
 import pl.futurecollars.invoicing.db.file.JsonService;
 import pl.futurecollars.invoicing.db.memory.InMemoryDatabase;
 import pl.futurecollars.invoicing.db.sql.SqlDatabase;
+import pl.futurecollars.invoicing.db.sql.jpa.InvoiceRepository;
+import pl.futurecollars.invoicing.db.sql.jpa.JpaDatabase;
 
 @Slf4j
 @Configuration
@@ -56,5 +58,11 @@ public class DatabaseConfiguration {
   @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "sql")
   public Database sqlDatabase(JdbcTemplate jdbcTemplate) {
     return new SqlDatabase(jdbcTemplate);
+  }
+
+  @Bean
+  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "jpa")
+  public Database jpaDatabase(InvoiceRepository invoiceRepository) {
+    return new JpaDatabase(invoiceRepository);
   }
 }
