@@ -19,26 +19,34 @@ import pl.futurecollars.invoicing.db.memory.InMemoryDatabase;
 public class DatabaseConfiguration {
 
   @Bean
-  public IdService idService(FileService fileService, @Value("${invoicing-system.database.location}") String databaseLocation,
-                             @Value("${invoicing-system.database.id.file}") String idFile) throws IOException {
-    Path idFilePath = Files.createTempFile(databaseLocation, idFile);
+  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "file")
+  public IdService idService(
+      FileService fileService,
+      @Value("${invoicing-system.database.directory}") String databaseDirectory,
+      @Value("${invoicing-system.database.id.file}") String idFile
+  ) throws IOException {
+    Path idFilePath = Files.createTempFile(databaseDirectory, idFile);
     return new IdService(idFilePath, fileService);
   }
 
-  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "file")
   @Bean
-  public Database fileBasedDatabase(IdService idService, FileService fileservice, JsonService jsonService,
-                                    @Value("${invoicing-system.database.location}") String databaseLocation,
-                                    @Value("${invoicing-system.database.invoices.file}") String invoicesFile) throws IOException {
-    log.debug("FileBasedDatabase selected");
-    Path databaseFilePath = Files.createTempFile(databaseLocation, invoicesFile);
+  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "file")
+  public Database fileBasedDatabase(
+      IdService idService,
+      FileService fileservice,
+      JsonService jsonService,
+      @Value("${invoicing-system.database.directory}") String databaseDirectory,
+      @Value("${invoicing-system.database.invoices.file}") String invoicesFile
+  ) throws IOException {
+    log.info("Using file based database");
+    Path databaseFilePath = Files.createTempFile(databaseDirectory, invoicesFile);
     return new FileBasedDatabase(fileservice, jsonService, idService, databaseFilePath);
   }
 
-  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "memory")
   @Bean
+  @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "memory")
   public Database inMemoryDatabase() {
-    log.debug("InMemoryDatabase selected");
+    log.info("Using in-memory database");
     return new InMemoryDatabase();
   }
 }

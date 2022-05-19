@@ -1,17 +1,18 @@
-spring:
-  profiles:
-    active: default
-
-
-invoicing-system:
-  database: file
-  database.location: db
-  database.id.file: id.txt
-  database.invoices.file: invoices.txt
+server:
+  port: 8080
 
 logging:
   level:
+    org:
+      springframwork:
+        boot: INFO
     pl:
       futurecollars:
         invoicing: INFO
         invoicing.db: DEBUG
+
+spring:
+  profiles:
+    active: memory
+  flyway:
+    enabled: false
