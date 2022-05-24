@@ -91,7 +91,7 @@ public class DatabaseConfiguration {
   @ConditionalOnProperty(name = "invoicing-system.database", havingValue = "mongo")
   public MongoIdProvider mongoIdProvider(
       @Value("${invoicing-system.database.counter.collection}") String collectionName,
-      MongoDatabase mongoDb){
+      MongoDatabase mongoDb) {
     MongoCollection<Document> collection = mongoDb.getCollection(collectionName);
     return new MongoIdProvider(collection);
   }
@@ -101,9 +101,9 @@ public class DatabaseConfiguration {
   public Database mongoDatabase(
       @Value("${invoicing-system.database.collection}") String collectionName,
       MongoDatabase mongoDb,
-      MongoIdProvider mongoIdProvider){
-    MongoCollection<Invoice> collection = mongoDb.getCollection(collectionName,Invoice.class);
-    return new MongoBasedDatabase(collection,mongoIdProvider);
+      MongoIdProvider mongoIdProvider) {
+    MongoCollection<Invoice> collection = mongoDb.getCollection(collectionName, Invoice.class);
+    return new MongoBasedDatabase(collection, mongoIdProvider);
   }
 
 }

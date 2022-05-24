@@ -30,6 +30,7 @@ public class MongoIdProvider {
     collection.findOneAndReplace(
         FILTER_DOCUMENT,
         counterDocument(++lastValue));
+
     return lastValue;
   }
 

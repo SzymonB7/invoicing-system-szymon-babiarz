@@ -57,11 +57,12 @@ dependencies {
     implementation "org.flywaydb:flyway-core:${flywayVersion}"
     implementation "org.mongodb:mongo-java-driver:${mongoVersion}"
 
+
+
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.spockframework:spock-core:${spockVersion}"
     testImplementation "org.spockframework:spock-spring:${spockVersion}"
     testImplementation "junit:junit:${junitVersion}"
-
 }
 
 testing {

@@ -27,37 +27,37 @@ public class MongoBasedDatabase implements Database {
   @Override
   public Optional<Invoice> getById(Integer id) {
 
-    return Optional.ofNullable(invoices.find(new Document("_id",id)).first());
+    return Optional.ofNullable(invoices.find(new Document("_id", id)).first());
   }
 
   @Override
   public List<Invoice> getAll() {
     return StreamSupport
-        .stream(invoices.find().spliterator(),false)
+        .stream(invoices.find().spliterator(), false)
         .collect(Collectors.toList());
   }
 
   @Override
   public void update(Integer id, Invoice updatedInvoice) {
-      updatedInvoice.setId(id);
-      if (invoices.findOneAndReplace(idFilter(id),updatedInvoice) == null){
-        throw new InvoiceNotFoundException("Id " + id + " does not exist");
-      }
-      else{
-        invoices.findOneAndReplace(idFilter(id),updatedInvoice);
-      }
+    updatedInvoice.setId(id);
+    if (invoices.findOneAndReplace(idFilter(id), updatedInvoice) == null) {
+      throw new InvoiceNotFoundException("Id " + id + " does not exist");
+    } else {
+      invoices.findOneAndReplace(idFilter(id), updatedInvoice);
+    }
   }
 
   @Override
   public void delete(Integer id) {
-    if (invoices.findOneAndDelete(idFilter(id)) == null)
-    {throw new InvoiceNotFoundException("Id " + id + " does not exist");}
-    else {
+    if (invoices.findOneAndDelete(idFilter(id)) == null) {
+      throw new InvoiceNotFoundException("Id " + id + " does not exist");
+    } else {
       invoices.findOneAndDelete(idFilter(id));
     }
   }
 
-  private Document idFilter(long id){
+  private Document idFilter(long id) {
     return new Document("_id", id);
   }
+
 }
