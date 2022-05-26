@@ -42,11 +42,11 @@ class InvoiceControllerOtherTests extends Specification {
 
     def 'should get correct invoice by id 2'() {
         given:
-        def invoice1 = TestHelpers.invoice(1)
+        def invoice1 = TestHelpers.invoice1
         invoice1.setId(1)
-        def invoice2 = TestHelpers.invoice(2)
+        def invoice2 = TestHelpers.invoice2
         invoice2.setId(2)
-        def invoice3 = TestHelpers.invoice(3)
+        def invoice3 = TestHelpers.invoice3
         invoice3.setId(3)
 
         when:
@@ -81,11 +81,11 @@ class InvoiceControllerOtherTests extends Specification {
 
     def "should return status not found when invoice with wrong id was called"() {
         given:
-        def invoice1 = TestHelpers.invoice(1)
+        def invoice1 = TestHelpers.invoice1
         invoice1.setId(1)
-        def invoice2 = TestHelpers.invoice(2)
+        def invoice2 = TestHelpers.invoice2
         invoice2.setId(2)
-        def invoice3 = TestHelpers.invoice(3)
+        def invoice3 = TestHelpers.invoice3
         invoice3.setId(3)
 
         helper_post(invoice1)
@@ -113,7 +113,7 @@ class InvoiceControllerOtherTests extends Specification {
     def "should post 1 invoice"() {
 
         given:
-        def invoice1 = TestHelpers.invoice(1)
+        def invoice1 = TestHelpers.invoice1
         invoice1.setId(1)
         def invoiceAsJson = jsonService.writeObjectAsJson(invoice1)
 
@@ -132,11 +132,11 @@ class InvoiceControllerOtherTests extends Specification {
 
     def "should post 3 invoices"() {
         given:
-        def invoice1 = TestHelpers.invoice(1)
+        def invoice1 = TestHelpers.invoice1
         invoice1.setId(1)
-        def invoice2 = TestHelpers.invoice(2)
+        def invoice2 = TestHelpers.invoice2
         invoice2.setId(2)
-        def invoice3 = TestHelpers.invoice(3)
+        def invoice3 = TestHelpers.invoice3
         invoice3.setId(3)
 
         when:
@@ -164,9 +164,9 @@ class InvoiceControllerOtherTests extends Specification {
     def "should post 2 invoices and delete 1 invoice"() {
 
         given:
-        def invoice1 = TestHelpers.invoice(1)
+        def invoice1 = TestHelpers.invoice1
         invoice1.setId(1)
-        def invoice2 = TestHelpers.invoice(2)
+        def invoice2 = TestHelpers.invoice2
         invoice2.setId(2)
         helper_post(invoice1)
         helper_post(invoice2)
@@ -200,9 +200,9 @@ class InvoiceControllerOtherTests extends Specification {
     def "should return status not found when try to delete invoice with wrong id"() {
 
         given:
-        def invoice1 = TestHelpers.invoice(1)
+        def invoice1 = TestHelpers.invoice1
         invoice1.setId(1)
-        def invoice2 = TestHelpers.invoice(2)
+        def invoice2 = TestHelpers.invoice2
         invoice2.setId(2)
         helper_post(invoice1)
         helper_post(invoice2)
@@ -216,7 +216,7 @@ class InvoiceControllerOtherTests extends Specification {
     def 'should modify 1 invoice'() {
 
         given:
-        def invoice1 = TestHelpers.invoice(1)
+        def invoice1 = TestHelpers.invoice1
         invoice1.setId(1)
         helper_post(invoice1)
         def modifiedInvoice1 = invoice1
