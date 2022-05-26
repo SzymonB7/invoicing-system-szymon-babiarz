@@ -27,7 +27,7 @@ class InvoiceControllerStepwiseTest extends Specification {
     @Autowired
     private JsonService jsonService
 
-    def invoice = TestHelpers.invoice(7)
+    def invoice = TestHelpers.invoice1
 
     LocalDate updateDate = LocalDate.of(2022, 01, 01)
 
