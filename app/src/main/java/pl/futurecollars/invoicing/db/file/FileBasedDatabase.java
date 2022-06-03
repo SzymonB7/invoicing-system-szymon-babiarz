@@ -81,7 +81,6 @@ public class FileBasedDatabase implements Database {
       if (invoicesUpdated == 0) {
         throw new InvoiceNotFoundException("Id" + id + "does not exist");
       }
-      invoicesInDatabase.set(id.intValue() - 1, updatedInvoiceAsJson);
       fileService.overwriteLinesInFile(databasePath, invoicesInDatabase);
     } catch (IOException e) {
       throw new RuntimeException("Failed to update invoice id:" + id + "in database");
